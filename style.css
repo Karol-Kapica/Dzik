@@ -1,0 +1,14 @@
+body{
+    background-color: black;
+    color:white;
+}
+h2{
+    color:red;
+    font-size: 200px;
+    margin:auto;
+    text-align:center;
+}
+div{
+    text-align:center;
+    margin:auto;
+}

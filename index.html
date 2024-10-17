@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gra w Dzika</title>
+  <link rel=stylesheet href="style.css">
+  <meta charset="utf-8">
+</head>
+<body>
+  <h2 id="h"> </h2>
+  <div id="gra">
+  <h1>Gra w Dzika</h1>
+  <img id="dzik" src="foto/dzik.jpg" alt="Dzik">
+  <img id="nein" src="foto/nein.jpg" alt="Nein!">
+  <div id="number">1</div>
+  <div id="timer">
+  </div>
+    <script>
+      let number = 1;
+      let pass=1;
+      let timeoutId;
+      const time = parseInt(prompt("Podaj czas na wybór (w ms)"));
+      let startTime = Date.now();
+      let klik=0;
+      const dzikImg = document.getElementById('dzik');
+      const neinImg = document.getElementById('nein');
+      const numberDiv = document.getElementById('number');
+      const timerDiv = document.getElementById('timer');
+      const graDiv = document.getElementById('gra');
+      const h = document.getElementById('h');
+      function licznik(){
+      timeout = setTimeout(function(){
+        if (pass==1){
+          number++;
+          numberDiv.textContent = number;
+          startTime = Date.now();
+          klik=0;
+          licznik();
+        } else{
+          h.textContent = "GAME OVER";
+          graDiv.innerHTML = "<a href=index.html>Powrót</a>";
+        }
+        pass=0;
+      },time);
+    }
+      licznik();
+      dzikImg.addEventListener('click', () => {
+        if (klik==1) return;
+        klik=1;
+        clearTimeout(timeout);
+        const currentTime = Date.now() - startTime;
+        timerDiv.textContent = `Czas reakcji: ${currentTime} ms`;
+  
+        if (number % 7 === 0 || number.toString().includes('7')) {
+          pass=1;
+          licznik()
+        } else {
+          pass=0;
+          h.textContent = "GAME OVER";
+          graDiv.innerHTML = "<a href='index.html'>Powrót</a>";
+        }
+      });
+      neinImg.addEventListener('click', () => {
+        if (klik==1) return;
+        klik=1;
+        clearTimeout(timeout);
+        const currentTime = Date.now() - startTime;
+        timerDiv.textContent = `Time: ${currentTime} ms`;
+  
+        if (number % 7 === 0 || number.toString().includes('7')) {
+          pass=0;
+          h.textContent = "GAME OVER";
+          graDiv.innerHTML = "<a href='index.html'>Powrót</a>";
+        } else {
+          pass=1;
+          licznik()
+        }
+      });
+    </script>
+</body>
+</html>
